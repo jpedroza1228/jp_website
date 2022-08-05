@@ -1,0 +1,30 @@
+project:
+  type: website
+
+website:
+  # title: "JP's Website Using Quarto"
+  # site-url: 
+  # repo_url: 
+  open-graph: true
+  twitter-card:
+    creator: "@jp_prev_uo"
+    card-style: summary_large_image
+  navbar:
+    left: 
+      - href: index.qmd
+        text: Posts
+    right:
+      - about.qmd
+      - icon: twitter
+        aria-label: twitter
+        href: https://twitter.com/jp_prev_uo
+      - icon: github
+        aria-label: github
+        href: https://github.com/jpedroza1228
+format:
+  html:
+    theme: minty
+    css: styles.css
+    toc: true
+
+editor: source
