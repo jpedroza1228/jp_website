@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.515">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2021-05-13">
+
+<title>Tidy Tuesday Coffee Ratings</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Tidy Tuesday Coffee Ratings">
+<meta property="og:image" content="coffee_process.jpg">
+<meta name="twitter:title" content="Tidy Tuesday Coffee Ratings">
+<meta name="twitter:image" content="coffee_process.jpg">
+<meta name="twitter:creator" content="@jp_prev_uo">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Posts</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">Jonathan A. Pedroza (JP)</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/jp_prev_uo"><i class="bi bi-twitter" role="img" aria-label="twitter">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jpedroza1228"><i class="bi bi-github" role="img" aria-label="github">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Tidy Tuesday Coffee Ratings</h1>
+            <p class="subtitle lead"></p><p>I decided to use TidyModels to create some models predicting Washed/Not Washed (Natural) Coffees.</p><p></p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Visualizations</div>
+                <div class="quarto-category">Analysis</div>
+                <div class="quarto-category">Tidy Tuesday</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 13, 2021</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#predicting-process-of-green-coffee-beans" id="toc-predicting-process-of-green-coffee-beans" class="nav-link active" data-scroll-target="#predicting-process-of-green-coffee-beans">Predicting Process of Green Coffee Beans</a>
+  <ul class="collapse">
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic Regression</a></li>
+  <li><a href="#lasso-regression" id="toc-lasso-regression" class="nav-link" data-scroll-target="#lasso-regression">Lasso Regression</a></li>
+  <li><a href="#ridge-regression" id="toc-ridge-regression" class="nav-link" data-scroll-target="#ridge-regression">Ridge Regression</a></li>
+  <li><a href="#elastic-net-regression" id="toc-elastic-net-regression" class="nav-link" data-scroll-target="#elastic-net-regression">Elastic Net Regression</a></li>
+  <li><a href="#new-recipe" id="toc-new-recipe" class="nav-link" data-scroll-target="#new-recipe">New Recipe</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="predicting-process-of-green-coffee-beans" class="level2">
+<h2 class="anchored" data-anchor-id="predicting-process-of-green-coffee-beans">Predicting Process of Green Coffee Beans</h2>
+<p>With coffee being a hobby of mine, I was scrolling through past Tidy Tuesdays and found one on coffee ratings. Originally I thought looking at predictions of total cup points, but I assumed with all the coffee tasting characteristics that it wouldn’t really tell me anything. Instead, I decided to look into the processing method, as there are different taste characteristics between washed and other processing methods.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>coffee <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">as.factor</span>(species),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">process =</span> <span class="fu">recode</span>(processing_method, <span class="st">"Washed / Wet"</span> <span class="ot">=</span> <span class="st">"washed"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Semi-washed / Semi-pulped"</span> <span class="ot">=</span> <span class="st">"not_washed"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Pulped natural / honey"</span> <span class="ot">=</span> <span class="st">"not_washed"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"not_washed"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Natural / Dry"</span> <span class="ot">=</span> <span class="st">"not_washed"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"NA"</span> <span class="ot">=</span> <span class="cn">NA_character_</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">process =</span> <span class="fu">as.factor</span>(process),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">process =</span> <span class="fu">relevel</span>(process, <span class="at">ref =</span> <span class="st">"washed"</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">country_of_origin =</span> <span class="fu">as.factor</span>(country_of_origin)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(process) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country_of_origin <span class="sc">!=</span> <span class="st">"Cote d?Ivoire"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1339 Columns: 43
+-- Column specification --------------------------------------------------------
+Delimiter: ","
+chr (24): species, owner, country_of_origin, farm_name, lot_number, mill, ic...
+dbl (19): total_cup_points, number_of_bags, aroma, flavor, aftertaste, acidi...
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>After looking at the distributions of procssing methods, I also decided to make the processing method binary with washed and not washed. This worked out better for the prediction models. There are also some descriptives of each variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>coffee <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(processing_method)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fill =</span> <span class="st">"dodgerblue"</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>coffee <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(process)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fill =</span> <span class="st">"dodgerblue"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(coffee, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)[<span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"skew"</span>, <span class="st">"kurtosis"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          n    mean      sd   min       max  skew kurtosis
+total_cup_points       1168   82.06    2.71 59.83     90.58 -1.95     9.26
+species*               1168    1.01    0.09  1.00      2.00 10.65   111.61
+owner*                 1161  133.43   76.78  1.00    287.00  0.10    -1.00
+country_of_origin*     1168   14.79   10.08  1.00     36.00  0.31    -1.12
+farm_name*              883  271.04  154.16  1.00    524.00  0.00    -1.27
+lot_number*             239   93.18   59.86  1.00    202.00  0.18    -1.27
+mill*                   931  196.60  122.71  1.00    419.00  0.24    -1.28
+ico_number*            1057  360.89  242.05  1.00    753.00  0.08    -1.27
+company*               1077  141.73   76.77  1.00    266.00 -0.10    -1.23
+altitude*              1014  154.54   98.40  1.00    351.00  0.32    -1.04
+region*                1137  174.91   87.74  1.00    325.00 -0.11    -1.09
+producer*               995  314.12  175.27  1.00    624.00 -0.04    -1.12
+number_of_bags         1168  153.80  130.08  1.00   1062.00  0.37     0.50
+bag_weight*            1168   23.50   16.67  1.00     45.00 -0.23    -1.71
+in_country_partner*    1168    9.68    7.04  1.00     25.00  0.41    -1.31
+harvest_year*          1161    5.82    2.95  1.00     14.00  0.76    -0.46
+grading_date*          1168  242.39  144.52  1.00    495.00  0.11    -1.21
+owner_1*               1161  135.29   77.68  1.00    290.00  0.09    -1.00
+variety*               1089   12.61    9.77  1.00     29.00  0.63    -1.24
+processing_method*     1168    3.98    1.67  1.00      5.00 -1.13    -0.62
+aroma                  1168    7.56    0.31  5.08      8.75 -0.55     4.46
+flavor                 1168    7.51    0.34  6.08      8.83 -0.34     1.73
+aftertaste             1168    7.39    0.34  6.17      8.67 -0.45     1.36
+acidity                1168    7.53    0.31  5.25      8.75 -0.30     3.31
+body                   1168    7.52    0.28  6.33      8.50 -0.10     0.89
+balance                1168    7.51    0.34  6.08      8.58 -0.10     1.17
+uniformity             1168    9.84    0.50  6.00     10.00 -4.21    20.83
+clean_cup              1168    9.84    0.75  0.00     10.00 -6.98    62.29
+sweetness              1168    9.89    0.52  1.33     10.00 -7.53    80.78
+cupper_points          1168    7.48    0.40  5.17      8.75 -0.64     2.79
+moisture               1168    0.09    0.05  0.00      0.17 -1.41     0.35
+category_one_defects   1168    0.51    2.70  0.00     63.00 14.43   279.42
+quakers                1167    0.17    0.82  0.00     11.00  6.87    57.30
+color*                 1070    2.80    0.64  1.00      4.00 -1.51     2.57
+category_two_defects   1168    3.79    5.54  0.00     55.00  3.54    18.53
+expiration*            1168  241.61  144.11  1.00    494.00  0.12    -1.21
+certification_body*    1168    9.38    6.65  1.00     24.00  0.37    -1.31
+certification_address* 1168   16.58    7.33  1.00     29.00 -0.19    -1.06
+certification_contact* 1168    9.39    7.26  1.00     26.00  0.36    -0.96
+unit_of_measurement*   1168    1.87    0.34  1.00      2.00 -2.21     2.87
+altitude_low_meters    1012 1796.86 9073.21  1.00 190164.00 19.36   384.12
+altitude_high_meters   1012 1834.27 9071.86  1.00 190164.00 19.36   384.03
+altitude_mean_meters   1012 1815.56 9072.31  1.00 190164.00 19.36   384.12
+process*               1168    1.30    0.46  1.00      2.00  0.86    -1.27</code></pre>
+</div>
+</div>
+<p>Now, its time to split the data into training and testing data. I also included the function of <code>strata</code> to stratify sampling based on process.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05132021</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>coffee_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(coffee, <span class="at">strata =</span> <span class="st">"process"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>coffee_train <span class="ot">&lt;-</span> <span class="fu">training</span>(coffee_split)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>coffee_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(coffee_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I also did some cross validation for the training dataset and used the metrics I was most interested in.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05132021</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>coffee_fold <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(coffee_train, <span class="at">strata =</span> <span class="st">"process"</span>, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>metric_measure <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(accuracy, mn_log_loss, roc_auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From the beginning I was interested in the tasting characteristics and how they would predict whether the green coffee was washed or not washed. I also included the total cup points because I wanted to see the importance of that predictor on the processing method. The only feature engineering I did was to remove any zero variance in the predictors of the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05132021</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>char_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(process <span class="sc">~</span> aroma <span class="sc">+</span> flavor <span class="sc">+</span> aftertaste <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                        acidity <span class="sc">+</span> body <span class="sc">+</span> balance <span class="sc">+</span> uniformity <span class="sc">+</span> clean_cup <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                        sweetness <span class="sc">+</span> total_cup_points,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> coffee_train) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>char_recipe <span class="sc">%&gt;%</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 x 11
+  aroma flavor aftertaste acidity  body balance unifor~1 clean~2 sweet~3 total~4
+  &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1  8.17   8.58       8.42    8.42  8.5     8.25       10      10      10    89  
+2  8.08   8.58       8.5     8.5   7.67    8.42       10      10      10    88.2
+3  8.17   8.17       8       8.17  8.08    8.33       10      10      10    87.2
+4  8.42   8.17       7.92    8.17  8.33    8          10      10      10    87.1
+5  8.5    8.5        8       8     8       8          10      10      10    86.9
+6  8      8          8       8.25  8       8.17       10      10      10    86.6
+# ... with 1 more variable: process &lt;fct&gt;, and abbreviated variable names
+#   1: uniformity, 2: clean_cup, 3: sweetness, 4: total_cup_points
+# i Use `colnames()` to see all variable names</code></pre>
+</div>
+</div>
+<section id="logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
+<p>The first model I wanted to test with the current recipe was logistic regression. The <code>accuracy</code> and <code>roc auc</code> were alright for a starting model.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'glmnet' was built under R version 4.0.5</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'Matrix' was built under R version 4.0.5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(lr_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 x 6
+  .metric     .estimator  mean     n std_err .config             
+  &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy    binary     0.698    10 0.00342 Preprocessor1_Model1
+2 mn_log_loss binary     0.589    10 0.00775 Preprocessor1_Model1
+3 roc_auc     binary     0.648    10 0.0188  Preprocessor1_Model1</code></pre>
+</div>
+</div>
+</section>
+<section id="lasso-regression" class="level3">
+<h3 class="anchored" data-anchor-id="lasso-regression">Lasso Regression</h3>
+<p>Now for the first penalized regression. The lasso regression did not improve in either metric. Let’s try the next penalized regression.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(lasso_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 x 6
+  .metric     .estimator  mean     n std_err .config             
+  &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy    binary     0.702    10 0.00397 Preprocessor1_Model1
+2 mn_log_loss binary     0.592    10 0.00850 Preprocessor1_Model1
+3 roc_auc     binary     0.645    10 0.0191  Preprocessor1_Model1</code></pre>
+</div>
+</div>
+</section>
+<section id="ridge-regression" class="level3">
+<h3 class="anchored" data-anchor-id="ridge-regression">Ridge Regression</h3>
+<p>The ridge regression was shown to not be a good fitting model. So I tested an additional penalized regression while tuning hyper-parameters.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<pre class="rmetrics cell-code"><code>collect_metrics(ridge_fit)</code></pre>
+</div>
+</section>
+<section id="elastic-net-regression" class="level3">
+<h3 class="anchored" data-anchor-id="elastic-net-regression">Elastic Net Regression</h3>
+<p>The elastic net regression had slightly better accuracy than the non-penalized logistic regression but the ROC AUC was exactly the same. While the elastic net regression did not take long computationally due to the small amount of data, this model would not be chosen over the logistic regression.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(elastic_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 300 x 8
+         penalty mixture .metric     .estimator  mean     n std_err .config     
+           &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;       
+ 1 0.0000000001        0 accuracy    binary     0.698    10 0.00342 Preprocesso~
+ 2 0.0000000001        0 mn_log_loss binary     0.589    10 0.00775 Preprocesso~
+ 3 0.0000000001        0 roc_auc     binary     0.648    10 0.0188  Preprocesso~
+ 4 0.00000000129       0 accuracy    binary     0.698    10 0.00342 Preprocesso~
+ 5 0.00000000129       0 mn_log_loss binary     0.589    10 0.00775 Preprocesso~
+ 6 0.00000000129       0 roc_auc     binary     0.648    10 0.0188  Preprocesso~
+ 7 0.0000000167        0 accuracy    binary     0.698    10 0.00342 Preprocesso~
+ 8 0.0000000167        0 mn_log_loss binary     0.589    10 0.00775 Preprocesso~
+ 9 0.0000000167        0 roc_auc     binary     0.648    10 0.0188  Preprocesso~
+10 0.000000215         0 accuracy    binary     0.698    10 0.00342 Preprocesso~
+# ... with 290 more rows
+# i Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_best</span>(elastic_fit, <span class="at">metric =</span> <span class="st">"accuracy"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 8
+        penalty mixture .metric  .estimator  mean     n std_err .config         
+          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;           
+1 0.0774          0.111 accuracy binary     0.703    10 0.00434 Preprocessor1_M~
+2 0.0000000001    0.333 accuracy binary     0.703    10 0.00422 Preprocessor1_M~
+3 0.00000000129   0.333 accuracy binary     0.703    10 0.00422 Preprocessor1_M~
+4 0.0000000167    0.333 accuracy binary     0.703    10 0.00422 Preprocessor1_M~
+5 0.000000215     0.333 accuracy binary     0.703    10 0.00422 Preprocessor1_M~</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_best</span>(elastic_fit, <span class="at">metric =</span> <span class="st">"roc_auc"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 8
+        penalty mixture .metric .estimator  mean     n std_err .config          
+          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;            
+1 0.0000000001        0 roc_auc binary     0.648    10  0.0188 Preprocessor1_Mo~
+2 0.00000000129       0 roc_auc binary     0.648    10  0.0188 Preprocessor1_Mo~
+3 0.0000000167        0 roc_auc binary     0.648    10  0.0188 Preprocessor1_Mo~
+4 0.000000215         0 roc_auc binary     0.648    10  0.0188 Preprocessor1_Mo~
+5 0.00000278          0 roc_auc binary     0.648    10  0.0188 Preprocessor1_Mo~</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_best</span>(elastic_fit, <span class="at">metric =</span> <span class="st">"accuracy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 3
+  penalty mixture .config               
+    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 
+1  0.0774   0.111 Preprocessor1_Model019</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_best</span>(elastic_fit, <span class="at">metric =</span> <span class="st">"roc_auc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 3
+       penalty mixture .config               
+         &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 
+1 0.0000000001       0 Preprocessor1_Model001</code></pre>
+</div>
+</div>
+</section>
+<section id="new-recipe" class="level3">
+<h3 class="anchored" data-anchor-id="new-recipe">New Recipe</h3>
+<p>Even though the elastic net regression was only slightly better, I decided to update the workflow using that model. This time I decided to update the recipe by including additional predictors like if there were any defects in the green coffee beans, the species of the coffee (e.g., Robusta and Arabica), and the country of origin. I also included additional steps in my recipe by transforming the category predictors and working with the factor predictors, like species, and country of origin. The inclusion of additional steps and the predictors created a better fitting model with the elastic net regression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05132021</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>bal_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(process <span class="sc">~</span> aroma <span class="sc">+</span> flavor <span class="sc">+</span> aftertaste <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                        acidity <span class="sc">+</span> body <span class="sc">+</span> balance <span class="sc">+</span> uniformity <span class="sc">+</span> clean_cup <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                        sweetness <span class="sc">+</span> total_cup_points <span class="sc">+</span> category_one_defects <span class="sc">+</span> category_two_defects <span class="sc">+</span> species <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                        country_of_origin,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> coffee_train) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_BoxCox</span>(category_two_defects, category_one_defects) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_novel</span>(species, country_of_origin) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_other</span>(species, country_of_origin, <span class="at">threshold =</span> .<span class="dv">01</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_unknown</span>(species, country_of_origin) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(species, country_of_origin) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold01: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold02: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold03: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold04: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold05: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold06: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold07: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold08: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold09: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Fold10: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(elastic_bal_fit) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 300 x 8
+         penalty mixture .metric     .estimator  mean     n std_err .config     
+           &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;       
+ 1 0.0000000001        0 accuracy    binary     0.839    10 0.00923 Preprocesso~
+ 2 0.0000000001        0 mn_log_loss binary     0.431    10 0.0153  Preprocesso~
+ 3 0.0000000001        0 roc_auc     binary     0.840    10 0.0163  Preprocesso~
+ 4 0.00000000129       0 accuracy    binary     0.839    10 0.00923 Preprocesso~
+ 5 0.00000000129       0 mn_log_loss binary     0.431    10 0.0153  Preprocesso~
+ 6 0.00000000129       0 roc_auc     binary     0.840    10 0.0163  Preprocesso~
+ 7 0.0000000167        0 accuracy    binary     0.839    10 0.00923 Preprocesso~
+ 8 0.0000000167        0 mn_log_loss binary     0.431    10 0.0153  Preprocesso~
+ 9 0.0000000167        0 roc_auc     binary     0.840    10 0.0163  Preprocesso~
+10 0.000000215         0 accuracy    binary     0.839    10 0.00923 Preprocesso~
+# ... with 290 more rows
+# i Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_best</span>(elastic_bal_fit, <span class="at">metric =</span> <span class="st">"accuracy"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 8
+   penalty mixture .metric  .estimator  mean     n std_err .config              
+     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+1 0.000464   0.111 accuracy binary     0.840    10 0.0101  Preprocessor1_Model0~
+2 0.000464   0.222 accuracy binary     0.840    10 0.0101  Preprocessor1_Model0~
+3 0.00599    0.111 accuracy binary     0.840    10 0.00933 Preprocessor1_Model0~
+4 0.00599    0.222 accuracy binary     0.840    10 0.00933 Preprocessor1_Model0~
+5 0.00599    0.333 accuracy binary     0.840    10 0.00933 Preprocessor1_Model0~</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_best</span>(elastic_bal_fit, <span class="at">metric =</span> <span class="st">"mn_log_loss"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 8
+   penalty mixture .metric     .estimator  mean     n std_err .config           
+     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;             
+1 0.000464   1     mn_log_loss binary     0.420    10  0.0179 Preprocessor1_Mod~
+2 0.000464   0.889 mn_log_loss binary     0.420    10  0.0178 Preprocessor1_Mod~
+3 0.000464   0.778 mn_log_loss binary     0.420    10  0.0178 Preprocessor1_Mod~
+4 0.000464   0.667 mn_log_loss binary     0.420    10  0.0178 Preprocessor1_Mod~
+5 0.000464   0.556 mn_log_loss binary     0.420    10  0.0177 Preprocessor1_Mod~</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_best</span>(elastic_bal_fit, <span class="at">metric =</span> <span class="st">"roc_auc"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 8
+   penalty mixture .metric .estimator  mean     n std_err .config               
+     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                 
+1 0.00599    0.778 roc_auc binary     0.843    10  0.0150 Preprocessor1_Model078
+2 0.000464   0.667 roc_auc binary     0.843    10  0.0141 Preprocessor1_Model067
+3 0.00599    0.889 roc_auc binary     0.843    10  0.0148 Preprocessor1_Model088
+4 0.000464   0.444 roc_auc binary     0.843    10  0.0141 Preprocessor1_Model047
+5 0.000464   0.556 roc_auc binary     0.843    10  0.0141 Preprocessor1_Model057</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_best</span>(elastic_bal_fit, <span class="at">metric =</span> <span class="st">"accuracy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 3
+   penalty mixture .config               
+     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 
+1 0.000464   0.111 Preprocessor1_Model017</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_best</span>(elastic_bal_fit, <span class="at">metric =</span> <span class="st">"mn_log_loss"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 3
+   penalty mixture .config               
+     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 
+1 0.000464       1 Preprocessor1_Model097</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_best</span>(elastic_bal_fit, <span class="at">metric =</span> <span class="st">"roc_auc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 3
+  penalty mixture .config               
+    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 
+1 0.00599   0.778 Preprocessor1_Model078</code></pre>
+</div>
+</div>
+<p>Now using the testing dataset, we can see how well the final model fit the testing data. While not the best at predicting washed green coffee beans, this was a good test to show that the penalized regressions are not always the best fitting models compared to regular logistic regression. In the end, it seemed like the recipe was the most important component to predicting washed green coffee beans.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>! train/test split: preprocessor 1/1: Non-positive values in selected variable., No Box-Cox ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>final_results <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 4
+  .metric  .estimator .estimate .config             
+  &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy binary         0.823 Preprocessor1_Model1
+2 roc_auc  binary         0.817 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
