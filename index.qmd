@@ -9,7 +9,7 @@ listing:
   categories: true
 page-layout: full
 title-block-banner: true
-image: avatar.jpg
+image: #avatar.jpg
 ---
 
 ```{r write-redirects}
