@@ -1,6 +1,6 @@
 ---
 title: "Welcome to the log([J]onathan [And]rew [P]edroza)"
-subtitle: "Topics That I am interested in learning about"
+subtitle: "Where I share about R, Python, and Other Interesting Topics"
 listing:
   feed: true
   contents: posts
@@ -9,7 +9,7 @@ listing:
   categories: true
 page-layout: full
 title-block-banner: true
-image: avatar.jpg
+image: #avatar.jpg
 ---
 
 ```{r write-redirects}

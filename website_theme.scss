@@ -1,0 +1,82 @@
+/*-- scss:defaults --*/
+$theme-darkblue: #023047;
+$theme-lightblue: #8ecae6;
+$theme-white: #F7F8F9;
+$theme-red: #d7263d;
+$theme-code-red: #a80303;
+$theme-heading-font-size: 40pt;
+$theme-font-size: 30pt;
+$theme-code-font-size: 20pt;
+$theme-background-image: url("dlm_background.png");
+
+//@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;1,300;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allerta:bolditalic,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$body-bg: $theme-white;
+$presentation-heading-color: $theme-darkblue;
+$body-color: black;
+$link-color: $theme-red;
+
+$code-block-border-color: $theme-lightblue;
+$code-block-bg: lighten($code-block-border-color, 25%);
+
+//$presentation-heading-font: 'Playfair Display', sans-serif;
+//$font-family: 'Open Sans', sans-serif;
+
+$presentation-heading-font: 'Allerta', sans-serif;
+$font-family: 'Allerta', sans-serif;
+
+$presentation-h2-font-size: $theme-heading-font-size;
+$font-size: $theme-font-size;
+$code-block-font-size: $theme-code-font-size;
+
+/*-- scss:rules --*/
+
+p {
+  font-size: $theme-font-size;
+  font-family: $font-family;
+}
+
+code span.dv {
+  color: $theme-code-red;
+}
+
+.reveal pre code {
+  color: $theme-code-red;
+}
+
+// logo
+.reveal .slide-logo {
+  position: absolute !important;
+  height: 60px !important;
+  width: 120px !important;
+  max-width: unset !important;
+  max-height: unset !important;
+  z-index: 1;
+}
+
+//Footer
+.reveal .footer > p {
+  position: static;
+  //can use position: relative w/ bottom: 0; left: 0;
+  text-align: center;
+  display: inline-box;
+  min-height: 0; 
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $theme-darkblue;
+  font-size: 8pt; 
+}
+
+//background (whole slide)
+
+.reveal .slide-background-content {
+  background-image: $theme-background-image;
+  position: static;
+  width: 100%;
+  //width: 95%;
+  width: 100%;
+  //height: 95%;
+  background-position: 50% 50%;
+}
