@@ -1,6 +1,6 @@
 ---
 title: "Welcome to the log([J]onathan [And]rew [P]edroza)"
-subtitle: "Topics That I am interested in learning about"
+subtitle: "Where I will learn and share about R/Python/Julia Topics"
 listing:
   feed: true
   contents: posts
