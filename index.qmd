@@ -1,6 +1,6 @@
 ---
-title: "Looks At All My Stuff"
-subtitle: Things I Have Been Interested in Learning More About
+title: "Welcome to the log([J]onathan [And]rew [P]edroza)"
+subtitle: "Topics That I am interested in learning about"
 listing:
   feed: true
   contents: posts
