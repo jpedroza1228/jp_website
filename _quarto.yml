@@ -2,9 +2,9 @@ project:
   type: website
 
 website:
-  # title: "JP's Website Using Quarto"
-  # site-url: 
-  # repo_url: 
+  title: "log([J]onathan [And]rew [P]edroza)"
+  site-url: https://log-of-jandp.com/
+  repo-url: https://github.com/jpedroza1228/jp_website
   open-graph: true
   twitter-card:
     creator: "@jp_prev_uo"
@@ -24,7 +24,7 @@ website:
 format:
   html:
     theme: minty
-    css: styles.css
+   # css: styles.css
     toc: true
 
 editor: source

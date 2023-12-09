@@ -1,5 +1,5 @@
 ---
-title: "Welcome to the log([J]onathan [And]rew [P]edroza)"
+title: "Welcome to my posts"
 subtitle: "Where I share about R, Python, and Other Interesting Topics"
 listing:
   feed: true
